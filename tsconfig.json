@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    // ts 컴파일 후 출력 결과물이 저장되는 위치 vscode에서 자동완성할 수 있도록 해줌
+    "outDir": "./dist/",
+    //모듈 방식(es, export/import)
+    "module": "ESNext", //ESNext현재 가장 최신 스펙
+    //ts를 js로 컴파일한 후 결과 버전
+    "target": "ES2020", //ES2017 이상은 되어야 함.
+    // module과 target의 버전이 너무 멀지 않아야, 내가 쓴 코드가 의도대로 적용됨
+    //ex) ES2015는 async await 가 컴파일 하면 promise then으로 바뀜.
+    // ts에서 사용할 기본 js 라이브러리
+    "lib": ["ESNext", "DOM"],
+    //ts에서 js 코드를 쓸 수 있는지 여부
+    "allowJs": true
+  }
+}
