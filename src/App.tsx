@@ -15,8 +15,16 @@
 //사진 파일 삽입(파일을 참조하는 모듈명은 스네이크케이스로 적는게 충돌이 덜 남)
 import react_icon from "./assets/react-icon.png"; //types index.ts 에 확장자명을 추가해줘야 오류가 안남.
 import intro from "./assets/intro.mp4";
+import WelcomeMessage from "./components/WelcomeMessage";
+import Button from "./components/Button";
 
 const App = () => {
+  const handlerClickPrimaryButton = () => {
+    alert("Click me!");
+  };
+  const handlerClickSecondaryButton = () => {
+    alert("Cancel");
+  };
   // React.createElement(component, props, ...children)
   // React.createElement("div", null, "Hello, React!!")
   // <img src={react_icon} /> //이미지 모듈을 넣는 방법
@@ -29,8 +37,25 @@ const App = () => {
           <source src={intro} type="video/mp4" />
         </video>
       </div>
+      {/* React Props에 값을 대입 */}
+      <WelcomeMessage name={"React Typescript"} />
+
+      {/* props-down, event-up */}
+      {/* 부모-자식 컴포넌트간 데이터 교환방법 */}
+      <Button
+        label="Click me!"
+        color="primary"
+        onClick={handlerClickPrimaryButton}
+      />
+      <Button
+        label="Cancel"
+        color="secondary"
+        onClick={handlerClickSecondaryButton}
+      />
     </div>
   ); //이렇게 jsx 문법을 쓰려면 앞 쪽에 import react를 해줘야 한다.
+  //<WelcomeMessage name={"React Typescript"} />
+  //<WelcomeMessage /> 디폴트값 출력
 };
 
 export default App;
