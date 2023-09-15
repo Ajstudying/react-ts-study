@@ -6,12 +6,21 @@
     //트리셰이킹에는 common.js 방식이 안 좋음(모듈하나가 뭉쳐있음-큼). 항상 ES 모듈을 쓰는게 나음.
     "module": "ESNext", //ESNext현재 가장 최신 스펙 
     //ts를 js로 컴파일한 후 결과 버전
+    //**esbuild-loader 쓸 때는 영향을 안받음
     "target": "ES2020", //ES2017 이상은 되어야 함.
     // module과 target의 버전이 너무 멀지 않아야, 내가 쓴 코드가 의도대로 적용됨
     //ex) ES2015는 async await 가 컴파일 하면 promise then으로 바뀜.
     // ts에서 사용할 기본 js 라이브러리
     "lib": ["ESNext", "DOM"],
     //ts에서 js 코드를 쓸 수 있는지 여부
-    "allowJs": true
+    "allowJs": true,
+    //jsx라고 문법을 처리하는 방법(js로 변환했을 때)
+    //javascript Virtual DOM 객체를 HTML처럼 표기하는 방법
+    //**esbuild-loader 쓸 때는 영향을 안받음
+
+    //jsx-transpile: React import를 안해도 되게 하는 방법
+    //어디까지나 작성하는 컴포넌트 코드에 대한 얘기고
+    //어디선가 글로벌 수준에 React import를 해야 함.
+    "jsx": "preserve" //최적화를 위해 react -> preserve로 수정(esbuild-loader추가 후)
   }
 }
