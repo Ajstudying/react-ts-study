@@ -62,13 +62,17 @@ const Counter = () => {
       console.log("--얼럿박스 표시--");
       setShowAlert(true);
     }
-  }, [count]);
+  }, [count]); //이 부분에 state값 말고 속성값을 넣는 것도 가능하다.
 
   return (
     <>
       {/* 조건부 렌더링 괄호 안에는 식1개짜리만 쓸 수 있음. */}
       {showAlert && (
-        <Alert message="증가되었습니다." onClose={handleAlertColsed} />
+        // <Alert message="증가되었습니다." onClose={handleAlertColsed} />
+        <Alert
+          message={`증가되었습니다. 현재값: ${count}`}
+          onClose={handleAlertColsed}
+        />
       )}
       <div>
         <p>현재 카운트: {count}</p>
