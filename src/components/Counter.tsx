@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Alert from "./Alert";
 
 //1. props와 state 둘다 렌더링 결과물에 영향을 주는 변수
@@ -48,6 +48,20 @@ const Counter = () => {
     //   setShowAlert(true);
     // })();
   };
+  //함수를 메모이징(memo-ising)
+  //-웬만하면 memoising은 안 쓰는게 나음.
+  // 함수의 현재 상태를 저장
+  //useCallback(함수블록, 의존변수 배열)
+  //의존 변수 배열의 값이 바뀔 때만 함수를 재생성
+  //[showAlert] 이 부분이 바뀔 때만 재생성이 되는 것인데 이게 오류가 생성될 가능성이 큼.
+  // 왜냐하면 [showAlert] 이 배열의 관리가 안될 때가 많음.
+  //[]이런식으로 마무리해도 재생성은 안됨 그래도 버그가능성 있음.
+  // const handleAlertColsed = useCallback(() => {
+  //   if (showAlert) {
+  //     setShowAlert(false);
+  //   }
+  // }, [showAlert]);
+
   const handleAlertColsed = () => {
     setShowAlert(false);
   };
@@ -59,20 +73,26 @@ const Counter = () => {
   // 가장 처음에(의존변수가 초기화되는 시점)실행됨.
   useEffect(() => {
     if (count != 0) {
-      console.log("--얼럿박스 표시--");
-      setShowAlert(true);
+      // console.log("--얼럿박스 표시--");
+      if (!showAlert) {
+        setShowAlert(true);
+      }
     }
-  }, [count]); //이 부분에 state값 말고 속성값을 넣는 것도 가능하다.
+  }, [count, showAlert]); //이 부분에 state값 말고 속성값을 넣는 것도 가능하다.
+  //조건식이 두개면 이 쪽 배열에도 해당 조건의 변수를 추가해줘야 함.
+  //객체는 무조건 재생성 참조가 아님.
 
   return (
     <>
       {/* 조건부 렌더링 괄호 안에는 식1개짜리만 쓸 수 있음. */}
       {showAlert && (
-        // <Alert message="증가되었습니다." onClose={handleAlertColsed} />
-        <Alert
-          message={`증가되었습니다. 현재값: ${count}`}
-          onClose={handleAlertColsed}
-        />
+        <Alert message="증가되었습니다." onClose={handleAlertColsed} />
+        // 위와 같이 되어 메세지 변경이 되지 않아도 onClose는 함수 재생성 재대입이 일어남.
+        //다른 곳에서 렌더링이 일어나도 함수는 새로 들어가게 됨.
+        // <Alert
+        //   message={`증가되었습니다. 현재값: ${count}`}
+        //   onClose={handleAlertColsed}
+        // />
       )}
       <div>
         <p>현재 카운트: {count}</p>
