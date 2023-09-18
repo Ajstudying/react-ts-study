@@ -47,7 +47,7 @@ const Todo = () => {
     input.value = "";
   };
 
-  //해당조건에 맞는 요소만 제외돈 배열을 만듦
+  //해당조건에 맞는 요소만 제외된 배열을 만듦
   //filter를 친다.
   const handleRemove = (index: number) => {
     setTodoList(todoList.filter((_, idx) => idx !== index));
@@ -117,14 +117,14 @@ const Todo = () => {
               key={index}
               onClick={() => {
                 // handleRemove(index);
-                //이렇게 쓰는 이유는 button처럼 e를 받거나 안 받거나 인건데
+                //이렇게 쓰는 이유는 button처럼 e를 받거나 안 받거나 인건데 li 라서
                 //remove는 number를 넘겨줘야 하기 때문에 이렇게 수동으로
                 handleOpenModifyModal(index);
               }}
             >
               <button
                 onClick={(e) => {
-                  e.stopPropagation();
+                  e.stopPropagation(); //li에 걸려있는 이벤트를 stop해줌
                   handleRemove(index);
                 }}
               >

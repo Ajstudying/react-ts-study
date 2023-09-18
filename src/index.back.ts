@@ -18,7 +18,7 @@ import metadata from "./module";
 // let name = "Javascript!!";
 
 //타입 선언
-let name : String;
+let name : string;
 // name = 1;
 name = "Javascript";
 

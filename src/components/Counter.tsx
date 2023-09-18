@@ -63,22 +63,32 @@ const Counter = () => {
   // }, [showAlert]);
 
   const handleAlertColsed = () => {
-    setShowAlert(false);
+    console.log("handleAlertColsed 함수 호출");
+    if (showAlert) {
+      setShowAlert(false);
+    }
   };
+
+  useEffect(() => {
+    if (count !== 0) {
+      setShowAlert(true);
+    }
+  }, [count]);
 
   //바뀐 상태값 캐치
   //상태값 변경이나 컴포넌트 라이프사이클 변동에 따른 처리
   // useEffect(함수블럭, 의존변수배열)
   // 의존변수가 바뀌면 함수 블럭이 실행됨.
   // 가장 처음에(의존변수가 초기화되는 시점)실행됨.
-  useEffect(() => {
-    if (count != 0) {
-      // console.log("--얼럿박스 표시--");
-      if (!showAlert) {
-        setShowAlert(true);
-      }
-    }
-  }, [count, showAlert]); //이 부분에 state값 말고 속성값을 넣는 것도 가능하다.
+  // useEffect(() => {
+  //   if (count != 0) {
+  //     // console.log("--얼럿박스 표시--");
+  //     if (!showAlert) {
+  //       //
+  //       setShowAlert(true);
+  //     }
+  //   }
+  // }, [count, showAlert]); //이 부분에 state값 말고 속성값을 넣는 것도 가능하다.
   //조건식이 두개면 이 쪽 배열에도 해당 조건의 변수를 추가해줘야 함.
   //객체는 무조건 재생성 참조가 아님.
 

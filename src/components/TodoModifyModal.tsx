@@ -4,17 +4,17 @@ interface TodoModifyModalProps {
   index: number;
   memo: string;
   onConfirm: (payload: { index: number; memo: string }) => void;
-  onCancel: () => void;
   // open: boolean;//트랜지션 넣을 경우 이런 느낌으로..?
+  onCancel: () => void;
 }
 
 const TodoModifyModal = ({
   index,
   memo,
   onConfirm,
+  // open,//트랜지션 넣을 경우 이런 느낌으로..?
   onCancel,
-}: // open,//트랜지션 넣을 경우 이런 느낌으로..?
-TodoModifyModalProps) => {
+}: TodoModifyModalProps) => {
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   const handleConfirm = () => {

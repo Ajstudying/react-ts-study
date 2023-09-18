@@ -7,17 +7,19 @@ interface AlertProps {
 
 const Alert = ({ message, onClose }: AlertProps) => {
   //const Alert = ({message} : {message: string}) 이렇게 한줄로도 가능.
+
   const handleClickClose = () => {
+    console.log("handleClickClose 함수 호출"); // 추가
     onClose();
   };
 
-  useEffect(
-    function () {
-      console.log("메시지가 초기화 되거나 변경되었습니다.");
-      console.log(message);
-    },
-    [message]
-  );
+  // useEffect(
+  //   function () {
+  //     console.log("메시지가 초기화 되거나 변경되었습니다.");
+  //     console.log(message);
+  //   },
+  //   [message]
+  // );
 
   return (
     <div>
@@ -45,6 +47,6 @@ const Alert = ({ message, onClose }: AlertProps) => {
 // }
 // });
 
-// export default Alert;
+export default Alert;
 
-export default memo(Alert);
+// export default memo(Alert);
