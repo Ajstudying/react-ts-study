@@ -122,7 +122,15 @@ const Todo = () => {
                 handleOpenModifyModal(index);
               }}
             >
-              {item.memo}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemove(index);
+                }}
+              >
+                삭제
+              </button>
+              <span>{item.memo}</span>
             </li>
           ))}
         </ul>
