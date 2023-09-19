@@ -1,5 +1,6 @@
 import Counter from "./components/Counter";
 import Layout from "./components/Layout";
+import Post from "./components/Post";
 import Todo from "./components/Todo";
 import WelcomeMessage from "./components/WelcomeMessage";
 
@@ -15,6 +16,8 @@ const App = () => {
         <WelcomeMessage name="Alice" />
         <p>Welcom to our Website!</p>
       </Layout>
+      <hr />
+      <Post />
     </>
   );
 };
