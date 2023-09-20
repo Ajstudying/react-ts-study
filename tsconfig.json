@@ -25,6 +25,15 @@
     
     //emotion 사용에 필요 npm install @emotion/react @emotion/styled <<타입을 추가로 적어줘야 하는데 안적어서 아래의 모듈을 추가함
     //아래와 같이 써주면 모듈을 찾음.
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    //npm install -D @styled/typescript-styled-plugin
+    "plugins": [
+      {
+        "name": "@styled/typescript-styled-plugin",
+        "lint": {
+          "validProperties": ["label"]
+        }
+      }
+    ],
   }
 }

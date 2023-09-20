@@ -1,5 +1,9 @@
 import { Key, MutableRefObject, useEffect, useRef, useState } from "react";
-import TodoModifyModal from "./TodoModifyModal";
+//모듈 가져오기
+//1차시도: ./TodoModifyModal.ts/tsx/js/jsx
+//2차시도: ./TodoModifyModal/index.ts/tsx/js/jsx
+import TodoModifyModal from "../TodoModifyModal";
+import { TodoConatainer } from "./styles";
 //use 라인 애들은 다 hook임.
 
 //타입 생성도 가능
@@ -96,44 +100,51 @@ const Todo = () => {
   }, [todoList]);
 
   return (
-    <div>
+    <TodoConatainer>
       {/* ref 속성에 참조변수 넣기 */}
-      <input placeholder="..할일" ref={inputRef}></input>
-      <button onClick={handleAdd}>추가</button>
+      <header>
+        <input placeholder="..할일" ref={inputRef}></input>
+        <button onClick={handleAdd}>추가</button>
+      </header>
       {todoList.length === 0 && <p>할 일 목록이 없습니다.</p>}
       {todoList.length > 0 && (
-        <ul>
-          {/* li */}
-          {/* li */}
-          {/* li */}
+        <>
+          <ul>
+            {/* li */}
+            {/* li */}
+            {/* li */}
 
-          {/* string[] => <li>[] */}
-          {/* 데이터 -> JSX.Element로 변경 */}
-          {todoList.map((item, index) => (
-            //key 속성은 엘레멘트 변동 여부를 추적할 때 사용하는 속성
-            //key 가 변동되면, 엘리멘트를 다시 새로 만듦.
-            //키값을 변동되는 인덱스보다, 유일한 id값을 쓰는게 좋다.
-            <li
-              key={index}
-              onClick={() => {
-                // handleRemove(index);
-                //이렇게 쓰는 이유는 button처럼 e를 받거나 안 받거나 인건데 li 라서
-                //remove는 number를 넘겨줘야 하기 때문에 이렇게 수동으로
-                handleOpenModifyModal(index);
-              }}
-            >
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(); //li에 걸려있는 이벤트를 stop해줌
-                  handleRemove(index);
+            {/* string[] => <li>[] */}
+            {/* 데이터 -> JSX.Element로 변경 */}
+            {todoList.map((item, index) => (
+              //key 속성은 엘레멘트 변동 여부를 추적할 때 사용하는 속성
+              //key 가 변동되면, 엘리멘트를 다시 새로 만듦.
+              //키값을 변동되는 인덱스보다, 유일한 id값을 쓰는게 좋다.
+              <li
+                key={index}
+                onClick={() => {
+                  // handleRemove(index);
+                  //이렇게 쓰는 이유는 button처럼 e를 받거나 안 받거나 인건데 li 라서
+                  //remove는 number를 넘겨줘야 하기 때문에 이렇게 수동으로
+                  handleOpenModifyModal(index);
                 }}
               >
-                삭제
-              </button>
-              <span>{item.memo}</span>
-            </li>
-          ))}
-        </ul>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); //li에 걸려있는 이벤트를 stop해줌
+                    handleRemove(index);
+                  }}
+                >
+                  삭제
+                </button>
+                <span>{item.memo}</span>
+              </li>
+            ))}
+          </ul>
+          <footer>
+            <data>{todoList.length}</data> 개의 할일
+          </footer>
+        </>
       )}
       {showModifyModal && (
         <TodoModifyModal
@@ -146,7 +157,7 @@ const Todo = () => {
           onCancel={handleModifyModalCancle}
         />
       )}
-    </div>
+    </TodoConatainer>
   );
 };
 

@@ -11,7 +11,7 @@ const Button = ({ label, color = "primary", onClick }: ButtonProps) => {
       : { backgroundColor: "lightgray" };
 
   const handlerClick = (e: React.MouseEvent) => {
-    //html mouse event는 아래처럼 들어가있듬
+    //html mouse event는 아래처럼 들어가있음
     // e.nativeEvent
 
     //속성(props)으로 넘어온 함수가 있으면 함수를 호출합니다.
