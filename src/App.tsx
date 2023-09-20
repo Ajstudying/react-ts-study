@@ -1,23 +1,9 @@
-import Counter from "./components/Counter";
-import Layout from "./components/Layout";
-import Post from "./components/Post";
-import Todo from "./components/Todo";
-import WelcomeMessage from "./components/WelcomeMessage";
+import { Button } from "./components/Button/styles";
 
 const App = () => {
   return (
     <>
-      <Counter />
-      <hr />
-      <Todo />
-      <hr />
-      <Layout title="Home Page">
-        {/* children 속성을 안 쪽태그에 */}
-        <WelcomeMessage name="Alice" />
-        <p>Welcom to our Website!</p>
-      </Layout>
-      <hr />
-      <Post />
+      <Button>버튼</Button>
     </>
   );
 };
