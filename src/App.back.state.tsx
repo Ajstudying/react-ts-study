@@ -1,7 +1,7 @@
 import Counter from "./components/Counter";
 import Layout from "./components/Layout";
-import Post from "./components/Post";
-import Todo from "./components/todo/Todo";
+import Post from "./modules/post/Post/Post";
+import Todo from "@/modules/todo/Todo";
 import WelcomeMessage from "./components/WelcomeMessage";
 
 const App = () => {

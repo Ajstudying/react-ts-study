@@ -4,6 +4,10 @@ import Home from "./pages/Home";
 // import Todo from "./modules/todo/Todo";
 import Layout from "./Layout";
 import { lazy } from "react";
+import PostSidebar from "./modules/posts/PostSidebar";
+import PostList from "./modules/posts/PostList";
+import PostForm from "./modules/posts/PostForm";
+import PostDetail from "./modules/posts/PostDetail";
 // import ContactSidebar from "./modules/contacts/ContactSidebar";
 // import ContactList from "./modules/contacts/ContactList";
 // import ContactDetail from "./modules/contacts/ContactDetail";
@@ -48,11 +52,16 @@ const App = () => {
           <Route path="contacts" element={<ContactSidebar />}>
             {/* contacts의 디폴트를 contactList로 하는 것↓ */}
             {/* /contacts */}
-            <Route element={<ContactList />} index></Route>
+            <Route element={<ContactList />} index />
             {/* /contacts/form */}
-            <Route path="form" element={<ContactForm />} index></Route>
+            <Route path="form" element={<ContactForm />} index />
             {/* /conatacts/detail/:id */}
             <Route path="detail/:id" element={<ContactDetail />} />
+          </Route>
+          <Route path="posts" element={<PostSidebar />}>
+            <Route element={<PostList />} index />
+            <Route path="form" element={<PostForm />} index />
+            {/* <Route path="detail/:id" element={<PostDetail />}></Route> */}
           </Route>
         </Route>
       </Routes>
