@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Todo from "./components/todo/Todo";
+import Todo from "@/modules/todo/Todo";
 import ResetStyle from "./styles/reset";
 
 const App = () => {
