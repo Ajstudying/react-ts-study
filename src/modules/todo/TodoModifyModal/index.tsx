@@ -1,6 +1,9 @@
 import { MutableRefObject, useRef } from "react";
 import { ButtonContainer, Container, Wrapper } from "./styles";
-import { Button } from "../../Button/styles";
+//ts컨피그만 routing설정하면서 경로 설정하면 아래로 바꿨을 때 오류 생겨서
+//webpack 설정도 추가해줘야 함.
+// import { Button } from "../../../components/Button/styles";
+import { Button } from "@/components/Button/styles";
 
 interface TodoModifyModalProps {
   index: number;

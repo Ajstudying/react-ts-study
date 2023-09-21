@@ -8,9 +8,15 @@ const { ProvidePlugin } = require("webpack");
 module.exports = {
   // 시작지점의 코드(여기서부터 번들링이 시작)
   entry: "./src/index.tsx", //jsx 문법을 적용하려면 ts -> tsx로 변경해줘야 함.
-  //entry부터 시작해서 확장자가 ts/js 인 파일들을 번들링 하겠다.
   resolve: {
+    //entry부터 시작해서 확장자가 ts/js 인 파일들을 번들링 하겠다.
     extensions: [".tsx", ".ts", ".js"], //jsx 문법을 적용하려면 .tsx 추가
+    //웹팩 경로 설정 추가
+    //경로에 대한 alias(별칭) 설정
+    alias: {
+      //[path.resolve(__dirname, "src")],
+      "@": __dirname + "/src",
+    },
   },
   //모듈 해석기
   module: {
@@ -66,6 +72,8 @@ module.exports = {
   // 램(ram)에 파일 디렉터리 형태로 구조를 만들어서 저장
   // 램디스크처럼 ./dist/index.html, ./dist/bundle.js
   devServer: {
+    //아래는 todo폴더 안에 index.html을 todo/index.html 이 아니고 todo로 끝낼 수 있게 함.
+    historyApiFallback: true,
     static: "./dist", //이걸 안 쓰면 실행하는 현재 위치에서 뜸.
     //디폴트가 현재 경로로 돌아가기 때문.
     // 그렇게 되면 node moudules 등을 다 읽어버리기 때문에(로딩속도가 미친듯이 떨어짐.)
