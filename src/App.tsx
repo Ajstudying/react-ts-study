@@ -35,6 +35,8 @@ const Todo = lazy(() => {
   );
 });
 
+const ProfileEdit = lazy(() => import("@/modules/profile/ProfilesEdit"));
+
 const App = () => {
   //라우팅 처리하는 곳의 가장 최상위에 BrowserRouter로 감싸줘야 함.
   return (
@@ -48,6 +50,8 @@ const App = () => {
           {/* index: 해당경로의 기본 화면 */}
           <Route element={<Home />} index />
           {/* 기능 모듈 */}
+          <Route path="/profile/edit" element={<ProfileEdit />} />
+
           <Route path="todo" element={<Todo />} />
           <Route path="contacts" element={<ContactSidebar />}>
             {/* contacts의 디폴트를 contactList로 하는 것↓ */}

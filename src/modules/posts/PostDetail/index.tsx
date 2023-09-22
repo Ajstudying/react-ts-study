@@ -12,6 +12,7 @@ interface TodoModifyModalProps {
     content: string;
     imgURL: string;
   }) => void;
+  onCancle: () => void;
 }
 
 const PostDetail = ({
@@ -20,6 +21,7 @@ const PostDetail = ({
   content,
   imgURL,
   onConfirm,
+  onCancle,
 }: TodoModifyModalProps) => {
   const modifyTitle = useRef() as MutableRefObject<HTMLInputElement>;
   const modifyContent = useRef() as MutableRefObject<HTMLTextAreaElement>;
@@ -41,9 +43,6 @@ const PostDetail = ({
 
     onConfirm({ index, title: title, content: content, imgURL: imgURL });
   };
-  const handleCancle = () => {
-    navigate("/posts");
-  };
 
   return (
     <>
@@ -62,7 +61,7 @@ const PostDetail = ({
         >
           수정
         </button>
-        <button onClick={handleCancle}>취소</button>
+        <button onClick={onCancle}>취소</button>
       </article>
     </>
   );

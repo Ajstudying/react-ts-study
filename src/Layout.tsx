@@ -1,9 +1,42 @@
 import { Suspense } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { ProfileData, useProfileData } from "./modules/profile/data";
 
 function Layout() {
+  //바로 아래의 방식은 오류가 생김.
+  // const { nickname, email } : ProfileData = {
+  //   nickname: "Alice",
+  //   email: "alice@gmail.com",
+  //   username: "alice",
+  // };
+
+  //객체 선언 후 타입 선언 가능 대신, username 접근이 안됨.
+  // const { nickname, email } = {
+  //   nickname: "Alice",
+  //   email: "alice@gmail.com",
+  //   username: "alice",
+  // } as ProfileData;
+
+  // swr 데이터 -> 상태값
+  // 데이터가 변경되면 컴포넌트가 다시 렌더링 된다.
+  // 필요한 것만 데려오는 것도 가능함.
+  const { profileData } = useProfileData();
+  const { nickname } = profileData;
+  // console.log(profileData);
+
+  const navigate = useNavigate();
+
+  const handleEditProfile = () => {
+    navigate("/profile/edit");
+  };
+
   return (
-    <div id="layout">
+    <div>
+      <header>
+        <em style={{ cursor: "pointer" }} onClick={handleEditProfile}>
+          {profileData.nickname}
+        </em>
+      </header>
       {/* 링크들이 들어가는 곳 */}
       <nav>
         <ul style={{ display: "flex", gap: "40px" }}>

@@ -1,13 +1,6 @@
 import { MutableRefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// interface PostItem {
-//   title: string;
-//   content: string;
-//   nickname: string;
-//   createTime: string;
-//   imgURL?: string;
-// }
+import { usePostsData } from "../data";
 
 const PostForm = () => {
   const navigate = useNavigate();
@@ -16,6 +9,8 @@ const PostForm = () => {
   const inputContent = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const inputNickname = useRef() as MutableRefObject<HTMLInputElement>;
   const inputFile = useRef<HTMLInputElement>(null);
+
+  const { postsData, mutatePostsData } = usePostsData();
 
   const handleAdd = () => {
     const title = inputTitle.current;
@@ -29,17 +24,30 @@ const PostForm = () => {
       imageURL = URL.createObjectURL(file); // 파일이 있다면 Blob URL 생성
     }
 
-    const newPost = {
-      title: title.value,
-      content: content.value,
-      nickname: nickname.value,
-      createTime: createTime,
-      imgURL: imageURL,
-    };
-    title.value = "";
-    content.value = "";
-    nickname.value = "";
-    navigate("/posts", { state: { newPost } });
+    mutatePostsData([
+      {
+        id: postsData.length + 1,
+        title: title.value,
+        content: content.value,
+        nickname: nickname.value,
+        createTime: createTime,
+        imgURL: imageURL,
+      },
+      ...postsData,
+    ]);
+    navigate("/posts");
+
+    //   const newPost = {
+    //     title: title.value,
+    //     content: content.value,
+    //     nickname: nickname.value,
+    //     createTime: createTime,
+    //     imgURL: imageURL,
+    //   };
+    //   title.value = "";
+    //   content.value = "";
+    //   nickname.value = "";
+    //   navigate("/posts", { state: { newPost } });
   };
 
   const handleCancel = () => {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostDetail from "../PostDetail";
 import { PostContainer } from "./styles";
+import { usePostsData } from "../data";
 
 interface PostItem {
   title: string;
@@ -11,8 +12,11 @@ interface PostItem {
   imgURL?: string;
 }
 
+//*** 이벤트 업 이벤트 다운 공부할 것**** */
 const PostList = () => {
-  const [postList, setPostList] = useState<PostItem[]>([]);
+  const { postsData: posts, mutatePostsData } = usePostsData();
+
+  // const [postList, setPostList] = useState<PostItem[]>([]);
   const [showModifyModal, setShowModifyModal] = useState(false);
   const [modifyItem, setModifyItem] = useState({
     index: 0,
@@ -24,16 +28,16 @@ const PostList = () => {
   const navigate = useNavigate();
 
   const handleRemove = (index: number) => {
-    setPostList(postList.filter((_, idx) => idx !== index));
+    mutatePostsData(posts.filter((_, idx) => idx !== index));
   };
   const handleClickItem = (index: number) => {
     // navigate(`/posts/detail/${index}`);
     setShowModifyModal(true);
     setModifyItem({
       index,
-      title: postList[index].title,
-      content: postList[index].content,
-      imgURL: postList[index].imgURL,
+      title: posts[index].title,
+      content: posts[index].content,
+      imgURL: posts[index].imgURL,
     });
   };
 
@@ -48,8 +52,8 @@ const PostList = () => {
     content: string;
     imgURL: string;
   }) => {
-    setPostList(
-      postList.map((item, idx) => {
+    mutatePostsData(
+      posts.map((item, idx) => {
         if (index === idx) {
           return { ...item, title, content, imgURL };
         }
@@ -59,16 +63,20 @@ const PostList = () => {
     setShowModifyModal(false);
   };
 
-  const location = useLocation();
-  const newPost = location.state?.newPost;
+  const handleCancle = () => {
+    setShowModifyModal(false);
+  };
 
-  useEffect(() => {
-    if (newPost) {
-      setPostList([newPost, ...postList]);
-    }
-  }, [newPost]);
+  // const location = useLocation();
+  // const newPost = location.state?.newPost;
 
-  return postList.map((item, index) => (
+  // useEffect(() => {
+  //   if (newPost) {
+  //     setPostList([newPost, ...postList]);
+  //   }
+  // }, [newPost]);
+
+  return posts.map((item, index) => (
     <PostContainer>
       <article id="item.id" key={index}>
         <div
@@ -105,6 +113,7 @@ const PostList = () => {
             title={modifyItem.title}
             content={modifyItem.content}
             onConfirm={handleModifyModalConfirm}
+            onCancle={handleCancle}
           />
         )}
       </article>
