@@ -21,12 +21,13 @@ const INIT_DATA: ContactData[] = [];
 
 const CONTACTS_DATA_KEY = "@data/contacts";
 //데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
-//아래 쪽에 [CONTACTS_DATA_KEY, page] 이렇게 받으면
-// const contactFetcher = ([key, page] : string|number[]) => {
-// 위처럼 바뀌면 console을 바로 그냥 key, page 칠수 있음 스플릿 안하고.
-const contactFetcher = (key: string) => {
+//아래 쪽에 `${CONTACTS_DATA_KEY}/${page}` 이렇게 받으면
+// const contactFetcher = (key: string) => {
+//   console.log(key);
+//   const page = +key.split("/")[2];
+//   console.log(page);
+const contactFetcher = ([key, page]: string | number[]) => {
   console.log(key);
-  const page = +key.split("/")[2];
   console.log(page);
   console.log("---call fetcher--");
   //fetch /contacts/paging?page={page}&size=20
@@ -45,7 +46,7 @@ const contactFetcher = (key: string) => {
 export const useContactsData = (page: number) => {
   const { data: contactsData, mutate } = useSWR<ContactData[]>(
     //데이터 키
-    `${CONTACTS_DATA_KEY}/${page}`, //[CONTACTS_DATA_KEY, page] 이런 식으로도 가능
+    [CONTACTS_DATA_KEY, page], //`${CONTACTS_DATA_KEY}/${page}` 이런 식으로도 가능
     contactFetcher,
     //캐시/또는 데이터 가져오기 이후에 데이터가 없을 대 반환하는 데이터
     {
@@ -95,8 +96,8 @@ export const useContactsData = (page: number) => {
 
       //변경된 데이터를 반환(무조건 새로운 참조로..!!)
       return nextData;
-    });
-    //}, false);
+    }, false);
+    // });
     //mutate(처리함수, false);
     //mutate 이후에 캐시만 업데이트하고, fetcher를 처리하지 않음.
     //불필요한 패치를 막기 위해 위같이 처리하기도 함.

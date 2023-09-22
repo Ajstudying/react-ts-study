@@ -1,52 +1,26 @@
-import { MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, useRef } from "react";
+import { POSTS_DATA_KEY, PostData, usePostsData } from "../data";
 import { useNavigate } from "react-router-dom";
 
-interface TodoModifyModalProps {
-  index: number;
-  title: string;
-  content: string;
-  imgURL?: string;
-  onConfirm: (payload: {
-    index: number;
-    title: string;
-    content: string;
-    imgURL: string;
-  }) => void;
-  onCancle: () => void;
-}
+const PostDetail = (id: number) => {
+  const { postsData, createPostData } = usePostsData(0);
 
-const PostDetail = ({
-  index,
-  title,
-  content,
-  imgURL,
-  onConfirm,
-  onCancle,
-}: TodoModifyModalProps) => {
   const modifyTitle = useRef() as MutableRefObject<HTMLInputElement>;
   const modifyContent = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const modifyFile = useRef() as MutableRefObject<HTMLInputElement>;
   const navigate = useNavigate();
 
-  // const [modifyItem, setModifyItem] = useState({
-  //   index: 0,
-  //   title: "",
-  //   content: "",
-  //   imgURL: null,
-  // });
+  const postJson = localStorage.getItem(POSTS_DATA_KEY);
+  const post = JSON.parse(postJson) as PostData[];
 
-  const handleConfirm = (index: number) => {
-    const file = modifyFile.current?.files?.[0];
-    const imgURL = file ? URL.createObjectURL(file) : null;
-    const title = modifyTitle.current.value;
-    const content = modifyContent.current.value;
-
-    onConfirm({ index, title: title, content: content, imgURL: imgURL });
+  const handleConfirm = (id: number) => {};
+  const handleCancle = () => {
+    navigate("/posts");
   };
 
   return (
     <>
-      <article id="index">
+      <article id="id">
         <input defaultValue={title} ref={modifyTitle}></input>
         {imgURL !== null ? (
           <input defaultValue={imgURL} type="file" ref={modifyFile} />
@@ -56,12 +30,12 @@ const PostDetail = ({
         <textarea defaultValue={content} ref={modifyContent}></textarea>
         <button
           onClick={() => {
-            handleConfirm(index);
+            handleConfirm(id);
           }}
         >
           수정
         </button>
-        <button onClick={onCancle}>취소</button>
+        <button onClick={handleCancle}>취소</button>
       </article>
     </>
   );

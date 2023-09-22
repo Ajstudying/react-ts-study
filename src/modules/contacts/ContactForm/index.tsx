@@ -9,7 +9,7 @@ const ContactForm = () => {
   const nameRef = useRef() as MutableRefObject<HTMLInputElement>;
   const phoneRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const { contactsData, createContactData } = useContactsData();
+  const { contactsData, createContactData } = useContactsData(0);
 
   const handleSave = () => {
     // 검증처리

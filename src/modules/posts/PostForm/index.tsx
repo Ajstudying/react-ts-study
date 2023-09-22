@@ -37,6 +37,7 @@ const PostForm = () => {
     ]);
     navigate("/posts");
 
+    //상태값에 객체 담아 보내기
     //   const newPost = {
     //     title: title.value,
     //     content: content.value,

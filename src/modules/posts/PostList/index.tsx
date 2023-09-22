@@ -14,7 +14,7 @@ interface PostItem {
 
 //*** 이벤트 업 이벤트 다운 공부할 것**** */
 const PostList = () => {
-  const { postsData: posts, mutatePostsData } = usePostsData();
+  const { postsData: posts, createPostData } = usePostsData(0);
 
   // const [postList, setPostList] = useState<PostItem[]>([]);
   const [showModifyModal, setShowModifyModal] = useState(false);
@@ -27,9 +27,9 @@ const PostList = () => {
 
   const navigate = useNavigate();
 
-  const handleRemove = (index: number) => {
-    mutatePostsData(posts.filter((_, idx) => idx !== index));
-  };
+  // const handleRemove = (index: number) => {
+  //   mutatePostsData(posts.filter((_, idx) => idx !== index));
+  // };
   const handleClickItem = (index: number) => {
     // navigate(`/posts/detail/${index}`);
     setShowModifyModal(true);
@@ -41,27 +41,27 @@ const PostList = () => {
     });
   };
 
-  const handleModifyModalConfirm = ({
-    index,
-    title,
-    content,
-    imgURL,
-  }: {
-    index: number;
-    title: string;
-    content: string;
-    imgURL: string;
-  }) => {
-    mutatePostsData(
-      posts.map((item, idx) => {
-        if (index === idx) {
-          return { ...item, title, content, imgURL };
-        }
-        return item;
-      })
-    );
-    setShowModifyModal(false);
-  };
+  // const handleModifyModalConfirm = ({
+  //   index,
+  //   title,
+  //   content,
+  //   imgURL,
+  // }: {
+  //   index: number;
+  //   title: string;
+  //   content: string;
+  //   imgURL: string;
+  // }) => {
+  //   createPostData(
+  //     posts.map((item, idx) => {
+  //       if (index === idx) {
+  //         return { ...item, title, content, imgURL };
+  //       }
+  //       return item;
+  //     })
+  //   );
+  //   setShowModifyModal(false);
+  // };
 
   const handleCancle = () => {
     setShowModifyModal(false);
@@ -101,21 +101,13 @@ const PostList = () => {
           </button>
           <button
             onClick={() => {
-              handleRemove(index);
+              // handleRemove(index);
             }}
           >
             삭제
           </button>
         </div>
-        {showModifyModal && (
-          <PostDetail
-            index={modifyItem.index}
-            title={modifyItem.title}
-            content={modifyItem.content}
-            onConfirm={handleModifyModalConfirm}
-            onCancle={handleCancle}
-          />
-        )}
+        {showModifyModal && <PostDetail id={modifyItem.index} />}
       </article>
     </PostContainer>
   ));
