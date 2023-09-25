@@ -50,7 +50,6 @@ const App = () => {
           {/* index: 해당경로의 기본 화면 */}
           <Route element={<Home />} index />
           {/* 기능 모듈 */}
-          <Route path="posts" element={<PostList />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
 
           <Route path="todo" element={<Todo />} />
@@ -63,11 +62,11 @@ const App = () => {
             {/* /conatacts/detail/:id */}
             <Route path="detail/:id" element={<ContactDetail />} />
           </Route>
-          {/* <Route path="posts" element={<PostSidebar />}>
+          <Route path="posts" element={<PostSidebar />}>
             <Route element={<PostList />} index />
-            <Route path="form" element={<PostForm />} index /> */}
-          {/* <Route path="detail/:id" element={<PostDetail />}></Route> */}
-          {/* </Route> */}
+            <Route path="form" element={<PostForm />} index />
+            {/* <Route path="detail/:id" element={<PostDetail />}></Route> */}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

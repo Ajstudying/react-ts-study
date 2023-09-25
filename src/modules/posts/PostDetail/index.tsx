@@ -19,25 +19,26 @@ const PostDetail = (id: number) => {
   };
 
   return (
-    <>
-      <article id="id">
-        <input defaultValue={title} ref={modifyTitle}></input>
-        {imgURL !== null ? (
-          <input defaultValue={imgURL} type="file" ref={modifyFile} />
-        ) : (
-          <input type="file" ref={modifyFile} />
-        )}
-        <textarea defaultValue={content} ref={modifyContent}></textarea>
-        <button
-          onClick={() => {
-            handleConfirm(id);
-          }}
-        >
-          수정
-        </button>
-        <button onClick={handleCancle}>취소</button>
-      </article>
-    </>
+    // <>
+    //   <article id="id">
+    //     <input defaultValue={title} ref={modifyTitle}></input>
+    //     {imgURL !== null ? (
+    //       <input defaultValue={imgURL} type="file" ref={modifyFile} />
+    //     ) : (
+    //       <input type="file" ref={modifyFile} />
+    //     )}
+    //     <textarea defaultValue={content} ref={modifyContent}></textarea>
+    //     <button
+    //       onClick={() => {
+    //         handleConfirm(id);
+    //       }}
+    //     >
+    //       수정
+    //     </button>
+    //     <button onClick={handleCancle}>취소</button>
+    //   </article>
+    // </>
+    <></>
   );
 };
 
