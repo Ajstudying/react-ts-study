@@ -1,0 +1,28 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "memo": "React 스터디"
+    },
+    {
+      "memo": "axios  스터디",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "memo": "swar study"
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Alice",
+      "phone": "010-1234-5678"
+    },
+    {
+      "id": 2,
+      "name": "John",
+      "phone": "010-1111-2222"
+    }
+  ]
+}

@@ -8,7 +8,12 @@ const ContactList = () => {
   //컴포넌트가 마운팅 될 때 1번 찍히고
   //contactData를 fetcher로 가져온 다음에 상태가 업데이트 된 다음 1번 더 찍힘.
   // console.log(page);
-  const { contactsData: contacts } = useContactsData(page);
+  const { contactsData: contacts, isContactDataValidating } =
+    useContactsData(page);
+
+  //서버/스토리지의 데이터와 캐시 데이터 비교 중인지 여부를 표시
+  console.log("----validating---");
+  console.log(isContactDataValidating);
 
   const navigate = useNavigate();
 
