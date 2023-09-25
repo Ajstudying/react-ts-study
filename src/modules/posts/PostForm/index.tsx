@@ -32,7 +32,7 @@ const PostForm = () => {
       createTime: createTime,
       imgURL: imageURL,
     });
-    navigate("/posts");
+    // navigate("/posts");
 
     //상태값에 객체 담아 보내기
     //   const newPost = {

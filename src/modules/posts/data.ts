@@ -1,4 +1,6 @@
+import { getCookie } from "@/utils/cookie";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 const postApi = axios.create({
@@ -46,9 +48,14 @@ export const usePostsData = (page: number) => {
   function createPostData(post: PostData) {
     mutate(async (prevData: PostData[] = [...INIT_DATA]) => {
       let nextData = [...prevData];
+      const token = getCookie("token");
 
       try {
-        const response = await postApi.post(POSTS_DATA_KEY, post);
+        const response = await postApi.post(POSTS_DATA_KEY, post, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.status === 201) {
           nextData.unshift({ ...response.data });
         }
@@ -69,5 +76,27 @@ export const usePostsData = (page: number) => {
     }, false);
   }
 
-  return { postsData, createPostData, isPostDataValidating };
+  function removePostData(id: number) {
+    mutate(async (prevData: PostData[] = []) => {
+      let nextData = [...prevData];
+      const token = getCookie("token");
+
+      try {
+        const response = await postApi.delete(`/posts/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          nextData = nextData.filter((post) => post.id !== id);
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+
+      return nextData;
+    }, false);
+  }
+
+  return { postsData, createPostData, removePostData, isPostDataValidating };
 };
