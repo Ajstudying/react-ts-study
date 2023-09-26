@@ -2,17 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostDetail from "../PostDetail";
 import { PostContainer } from "./styles";
-import { usePostsData } from "../data";
+import { PostData, usePostsData } from "../data";
 import http from "@/utils/http";
-import { mutate } from "swr";
-interface PostItem {
-  id?: number;
-  title: string;
-  content: string;
-  // nickname: string;
-  createTime: string;
-  imgURL?: string;
-}
 
 //*** 이벤트 업 이벤트 다운 공부할 것**** */
 const PostList = () => {
@@ -22,6 +13,7 @@ const PostList = () => {
     removePostData,
     isPostDataValidating,
   } = usePostsData(page);
+  const [postList, setPostList] = useState<PostData[]>([]);
 
   const [showModifyModal, setShowModifyModal] = useState(false);
   const [modifyItem, setModifyItem] = useState({
@@ -33,27 +25,17 @@ const PostList = () => {
 
   const navigate = useNavigate();
 
-  // const handleRemove = (index: number) => {
-  //   mutatePostsData(posts.filter((_, idx) => idx !== index));
-  // };
-  const handleClickItem = (index: number) => {
-    // navigate(`/posts/detail/${index}`);
-    setShowModifyModal(true);
-    setModifyItem({
-      index,
-      title: posts[index].title,
-      content: posts[index].content,
-      imgURL: posts[index].imgURL,
-    });
+  const handleClickItem = (id: number) => {
+    navigate(`/posts/detail/${id}`);
   };
 
   const handleRemove = (id: number) => {
+    setPostList(postList.filter((post) => post.id !== id));
     removePostData(id);
   };
-
-  const handleCancle = () => {
-    setShowModifyModal(false);
-  };
+  // const handleRemove = (index: number) => {
+  //   mutatePostsData(posts.filter((_, idx) => idx !== index));
+  // };
 
   // const location = useLocation();
   // const newPost = location.state?.newPost;
@@ -69,14 +51,22 @@ const PostList = () => {
       const response = await http.get("/posts"); //any 타입 js처럼 사용 가능
       // const response = await http.get<PostData>("/posts");// 타입선언도 가능.
       // const response = await http.get("/post");
+      if (response.data.length !== 0) {
+        setPostList(response.data);
+      }
     })();
   }, []);
 
   return (
     <>
       <PostContainer>
-        {posts.map((item, index) => (
-          <article key={`post-item-${item.id}`}>
+        {postList.map((item) => (
+          <article
+            key={`post-item-${item.id}`}
+            onClick={(p) => {
+              // handleClickItem(p.id);
+            }}
+          >
             <div
               style={{
                 display: "flex",
@@ -92,7 +82,7 @@ const PostList = () => {
               <h5>{item.createTime}</h5>
               <button
                 onClick={() => {
-                  handleClickItem(index);
+                  handleClickItem(item.id);
                 }}
               >
                 수정
@@ -105,7 +95,6 @@ const PostList = () => {
                 삭제
               </button>
             </div>
-            {/* {showModifyModal && <PostDetail id={modifyItem.index} />} */}
           </article>
         ))}
       </PostContainer>

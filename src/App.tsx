@@ -65,7 +65,7 @@ const App = () => {
           <Route path="posts" element={<PostSidebar />}>
             <Route element={<PostList />} index />
             <Route path="form" element={<PostForm />} index />
-            {/* <Route path="detail/:id" element={<PostDetail />}></Route> */}
+            <Route path="detail/:id" element={<PostDetail />}></Route>
           </Route>
         </Route>
       </Routes>

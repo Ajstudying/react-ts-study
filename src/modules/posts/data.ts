@@ -57,6 +57,7 @@ export const usePostsData = (page: number) => {
           },
         });
         if (response.status === 201) {
+          console.log(response.data);
           nextData.unshift({ ...response.data });
         }
       } catch (e: any) {
