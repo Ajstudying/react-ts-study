@@ -8,6 +8,7 @@ import PostSidebar from "./modules/posts/PostSidebar";
 import PostList from "./modules/posts/PostList";
 import PostForm from "./modules/posts/PostForm";
 import PostDetail from "./modules/posts/PostDetail";
+import OrderNotification from "./modules/order/OrderNotification/OrderNotification";
 // import ContactSidebar from "./modules/contacts/ContactSidebar";
 // import ContactList from "./modules/contacts/ContactList";
 // import ContactDetail from "./modules/contacts/ContactDetail";
@@ -44,6 +45,9 @@ const App = () => {
     // 페이지: index.html 1개
     // 경로에 맞는 컴포넌트를 스크립트로 로딩
     <BrowserRouter>
+      {/* <OrderNotification /> */}
+      {/* 서버에서 응답 대기 후 클라이언트에서 보내면 받는 구조인거임!! */}
+      {/* 컴포넌트를 동적으로 로딩할 때 지연시간 동안 보여주는 요소 */}
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* 컨텐츠 페이지 */}

@@ -32,20 +32,24 @@ const PostDetail = () => {
     if (file) {
       imageURL = URL.createObjectURL(file); // 파일이 있다면 Blob URL 생성
     }
-
     setModifyPost({
       title: modifyTitle.current.value,
       content: modifyContent.current.value,
     });
-
-    (async () => {
-      await http.put(`/posts/${id}`, modifyPost);
-      navigate("/posts");
-    })();
   };
   const handleCancle = () => {
     navigate("/posts");
   };
+
+  useEffect(() => {
+    //ModifyPost의 변경이 제대로 적용이 안되기 때문에 이렇게 비동기적으로 처리해줘야 함.
+    if (modifyPost) {
+      (async () => {
+        await http.put(`/posts/${id}`, modifyPost);
+        navigate("/posts");
+      })();
+    }
+  }, [modifyPost]);
 
   useEffect(() => {
     (async () => {
