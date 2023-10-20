@@ -99,5 +99,28 @@ export const usePostsData = (page: number) => {
     }, false);
   }
 
+  function modifyPostData(id: number, text: string) {
+    mutate(async (prevData: PostData[] = []) => {
+      const token = getCookie("token");
+
+      try {
+        const response = await postApi.put(`/posts/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          return prevData.map((data) =>
+            data.id === id ? { ...data, content: text } : { ...data }
+          );
+        }
+      } catch (e: any) {
+        console.log(e);
+      }
+
+      return prevData;
+    }, false);
+  }
+
   return { postsData, createPostData, removePostData, isPostDataValidating };
 };
