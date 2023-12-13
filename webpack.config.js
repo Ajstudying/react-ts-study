@@ -1,6 +1,8 @@
 // commonjs 방식의 모듈 import
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
+const { env } = require("process");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 //commonjs 방식의 모듈선언 및 내보내기
 // ↓ 자바스크립트로 타입을 쓰는 방법
@@ -78,5 +80,11 @@ module.exports = {
     //디폴트가 현재 경로로 돌아가기 때문.
     // 그렇게 되면 node moudules 등을 다 읽어버리기 때문에(로딩속도가 미친듯이 떨어짐.)
     open: true,
+  },
+  // 소스맵 최적화
+  devtool: env.WEBPACK_SERVE ? "eval-cheap-module-source-map" : false,
+  // 빌드 캐시 최적화
+  cache: {
+    type: env.WEBPACK_SERVE ? "memory" : "filesystem",
   },
 };
